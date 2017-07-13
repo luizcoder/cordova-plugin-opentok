@@ -21,8 +21,14 @@
 
 #pragma mark -
 #pragma mark Cordova Methods
--(void) pluginInitialize{
+-(void) pluginInitialize
+{
     callbackList = [[NSMutableDictionary alloc] init];
+	
+	[self.webView.superview setOpaque:NO];
+    self.webView.backgroundColor = [UIColor clearColor];
+    [self.webView setOpaque:NO];
+	
 }
 - (void)addEvent:(CDVInvokedUrlCommand*)command{
     NSString* event = [command.arguments objectAtIndex:0];
