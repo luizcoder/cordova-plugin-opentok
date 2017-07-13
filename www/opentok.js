@@ -1,5 +1,3 @@
-//This code is not being used. Instead a copy with added functionality is in tutor\www\js\cordova\opentok.js
-
 window.OT = {
   checkSystemRequirements: function() {
     return 1;
