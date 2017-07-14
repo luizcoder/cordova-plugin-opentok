@@ -25,8 +25,10 @@
 {
     callbackList = [[NSMutableDictionary alloc] init];
 	
+	self.webView.superview = [UIColor clearColor];
 	[self.webView.superview setOpaque:NO];
-    self.webView.backgroundColor = [UIColor clearColor];
+    
+	self.webView.backgroundColor = [UIColor clearColor];
     [self.webView setOpaque:NO];
 	
 }
@@ -98,8 +100,12 @@
         [_publisher setPublishAudio:bpubAudio];
         [_publisher setPublishVideo:bpubVideo];
         
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
-            [self.webView.superview addSubview:_publisher.view];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^
+		{
+			
+            //[self.webView.superview addSubview:_publisher.view];
+			[self.webView.superview insertSubview:_publisher.view atIndex:0];
+			
             [_publisher.view setFrame:CGRectMake(left, top, width, height)];
             if (zIndex>0) {
                 _publisher.view.layer.zPosition = zIndex;
@@ -336,7 +342,9 @@
     }
     sub.view.layer.cornerRadius = borderRadius;
     sub.view.clipsToBounds = borderRadius ? YES : NO;
-    [self.webView.superview addSubview:sub.view];
+	
+    //[self.webView.superview addSubview:sub.view];
+	[self.webView.superview insertSubview:sub.view atIndex:0];
     
     if (error) {
         NSLog(@"Session.subscribe failed: %@", [error localizedDescription]);
