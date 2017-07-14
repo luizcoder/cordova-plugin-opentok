@@ -88,7 +88,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         }
       }
 	  
-	  _webView.bringToFront();
+	  _webView.getView().bringToFront();
     }
 
     public int getZIndex(){
@@ -195,7 +195,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         }
         this.mView = mPublisher.getView();
         frame.addView( this.mView );
-		_webView.bringToFront();
+		_webView.getView().bringToFront();
         mSession.publish(mPublisher);
       }
       super.run();
@@ -274,7 +274,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         ViewGroup frame = (ViewGroup) cordova.getActivity().findViewById(android.R.id.content);
         this.mView = mSubscriber.getView();
         frame.addView( this.mView );
-		_webView.bringToFront();
+		_webView.getView().bringToFront();
         mSession.subscribe(mSubscriber);
         Log.i(TAG, "subscriber view is added to parent view!");
       }
@@ -361,7 +361,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
       _cordova = cordova;
       _webView = webView;
 	  
-	  _webView.setBackgroundColor(0x00000000); //transparent cordova webview
+	  _webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
 	  
       Log.d(TAG, "Initialize Plugin");
       // By default, get a pointer to mainView and add mainView to the viewList as it always exists (hold cordova's view)
