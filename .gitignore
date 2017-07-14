@@ -3,6 +3,4 @@
 *.swp
 */node_modules
 node_modules
-opentok-ios-sdk-*
-src/ios/OpenTok.framework
 .idea/
