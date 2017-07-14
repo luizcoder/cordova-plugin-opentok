@@ -25,7 +25,7 @@
 {
     callbackList = [[NSMutableDictionary alloc] init];
 	
-	self.webView.superview = [UIColor clearColor];
+	self.webView.superview.backgroundColor = [UIColor whiteColor];
 	[self.webView.superview setOpaque:NO];
     
 	self.webView.backgroundColor = [UIColor clearColor];
