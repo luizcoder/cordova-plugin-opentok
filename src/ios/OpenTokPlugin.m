@@ -71,7 +71,7 @@
 // Called by TB.initPublisher()
 - (void)initPublisher:(CDVInvokedUrlCommand *)command{
     NSLog(@"initPublisher...");
-    [self.commandDelegate runInBackground:^{
+   // [self.commandDelegate runInBackground:^{
         BOOL bpubAudio = YES;
         BOOL bpubVideo = YES;
         
@@ -117,7 +117,7 @@
             CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }];
-    }];
+   // }];
 }
 // Helper function to update Views
 - (void)updateView:(CDVInvokedUrlCommand*)command{
@@ -264,17 +264,18 @@
     NSLog(@"Session.publish...");
     [self.commandDelegate runInBackground:^{
         OTError *error;
-        [_session publish:_publisher error:&error];
-        
-        if (error) {
-            NSLog(@"Session.publish failed: %@", [error localizedDescription]);
-        }
-        else {
-            NSLog(@"Session.publish done");
-        }
-		
+
+		[_session publish:_publisher error:&error];
+	
+		if (error) {
+			NSLog(@"Session.publish failed: %@", [error localizedDescription]);
+		}
+		else {
+			NSLog(@"Session.publish done");
+		}		
+
         CDVPluginResult* pluginResult = error ?
-        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"%@ PUBLISH", [error localizedDescription]]] :
+        [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"%@ PUBLISH %@", [error localizedDescription], _publisher == nil ? @"PUBLISHER NIL" : @"PUBLISHER NOT NIL"]] :
         [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
