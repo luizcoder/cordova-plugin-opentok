@@ -68,7 +68,8 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         }
     }
 
-    public void updateZIndices(){
+    public void updateZIndices()
+	{
       allStreamViews =  new ArrayList<RunnableUpdateViews>();
       for (Map.Entry<String, RunnableSubscriber> entry : subscriberCollection.entrySet() ) { 
         allStreamViews.add( entry.getValue() ); 
@@ -78,13 +79,16 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
       }
       Collections.sort( allStreamViews, new CustomComparator() );
 
-      for( RunnableUpdateViews viewContainer : allStreamViews ){
+      for( RunnableUpdateViews viewContainer : allStreamViews )
+	  {
         ViewGroup parent = (ViewGroup) cordova.getActivity().findViewById(android.R.id.content);
         if (null != parent) {
           parent.removeView( viewContainer.mView );
           parent.addView(viewContainer.mView );
         }
       }
+	  
+	  _webView.bringToFront();
     }
 
     public int getZIndex(){
@@ -191,6 +195,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         }
         this.mView = mPublisher.getView();
         frame.addView( this.mView );
+		_webView.bringToFront();
         mSession.publish(mPublisher);
       }
       super.run();
@@ -269,6 +274,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         ViewGroup frame = (ViewGroup) cordova.getActivity().findViewById(android.R.id.content);
         this.mView = mSubscriber.getView();
         frame.addView( this.mView );
+		_webView.bringToFront();
         mSession.subscribe(mSubscriber);
         Log.i(TAG, "subscriber view is added to parent view!");
       }
@@ -354,6 +360,9 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
       _cordova = cordova;
       _webView = webView;
+	  
+	  _webView.setBackgroundColor(0x00000000); //transparent cordova webview
+	  
       Log.d(TAG, "Initialize Plugin");
       // By default, get a pointer to mainView and add mainView to the viewList as it always exists (hold cordova's view)
       if (!viewList.has("mainView")) {
