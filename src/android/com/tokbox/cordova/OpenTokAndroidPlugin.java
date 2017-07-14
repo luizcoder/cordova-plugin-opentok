@@ -362,10 +362,10 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
       _cordova = cordova;
       _webView = webView;
 	  
-	  getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+	  cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
 	  
 	  _webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
-	  _webView.bringToFront();
+	  _webView.getView().bringToFront();
 	  
       Log.d(TAG, "Initialize Plugin");
       // By default, get a pointer to mainView and add mainView to the viewList as it always exists (hold cordova's view)
