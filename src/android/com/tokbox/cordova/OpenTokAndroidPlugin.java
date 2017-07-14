@@ -362,8 +362,8 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
       _cordova = cordova;
       _webView = webView;
 	  
-	  cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
-	  
+	  //cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
+	  _webView.getView().getRootView().setBackgroundColor(0xFFFFFFFF);
 	  _webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
 	  _webView.getView().bringToFront();
 	  
