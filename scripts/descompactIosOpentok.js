@@ -4,8 +4,7 @@ module.exports = function (context)
 {
     var IosSDKVersion = 'OpenTok-iOS-2.8.3';
     var frameworkDir = context.opts.plugin.dir + '/src/ios';
-    var frameworkDownloaded = frameworkDir + '/OpenTok.framework/download_succesful_' + IosSDKVersion;
-	
+
 	exec('tar -zxvf ./' + IosSDKVersion + '.tar.bz2', function (err, out, code)
 	{
 		console.log('expanded');
