@@ -105,12 +105,16 @@
 			
             //[self.webView.superview addSubview:_publisher.view];
 			[self.webView.superview insertSubview:_publisher.view atIndex:0];
+			self.webView.layer.zPosition = 999;
 			
-            [_publisher.view setFrame:CGRectMake(left, top, width, height)];
-            if (zIndex>0) {
-                _publisher.view.layer.zPosition = zIndex;
-            }
-            NSString* cameraPosition = [command.arguments objectAtIndex:8];
+			[_publisher.view setFrame:CGRectMake(left, top, width, height)];
+            _publisher.view.layer.zPosition = 1;
+			
+			//if (zIndex>0) {
+                //_publisher.view.layer.zPosition = zIndex;
+            //}
+            
+			NSString* cameraPosition = [command.arguments objectAtIndex:8];
             if ([cameraPosition isEqualToString:@"back"]) {
                 _publisher.cameraPosition = AVCaptureDevicePositionBack;
             }
@@ -337,14 +341,17 @@
     [subscriberDictionary setObject:sub forKey:myStream.streamId];
     
     [sub.view setFrame:CGRectMake(left, top, width, height)];
-    if (zIndex>0) {
-        sub.view.layer.zPosition = zIndex;
-    }
+    //if (zIndex>0) {
+    //    sub.view.layer.zPosition = zIndex;
+    //}
     sub.view.layer.cornerRadius = borderRadius;
     sub.view.clipsToBounds = borderRadius ? YES : NO;
 	
     //[self.webView.superview addSubview:sub.view];
 	[self.webView.superview insertSubview:sub.view atIndex:0];
+	
+	self.webView.layer.zPosition = 999;
+	sub.view.layer.zPosition = 1;
     
     if (error) {
         NSLog(@"Session.subscribe failed: %@", [error localizedDescription]);
