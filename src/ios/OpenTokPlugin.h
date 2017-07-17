@@ -14,6 +14,9 @@
 
 @property(nonatomic, copy) NSString* exceptionId;
 
+//Face Recognition
+-(void)recognizeFace:(CDVInvokedUrlCommand*)command
+
 // Tokbox Library Functions
 - (void)addEvent:(CDVInvokedUrlCommand*)command;
 

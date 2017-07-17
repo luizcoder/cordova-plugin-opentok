@@ -282,7 +282,14 @@
 		}
 		else {
 			NSLog(@"Session.publish done");
-		}		
+			
+			faceRecognition = [NSTimer scheduledTimerWithTimeInterval:.1
+			target:self
+			selector:@selector(recognizeFace:)
+			userInfo:nil
+			repeats:YES];
+		}
+		
 
         CDVPluginResult* pluginResult = error ?
         [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"%@ PUBLISH %@", [error localizedDescription], _publisher == nil ? @"PUBLISHER NIL" : @"PUBLISHER NOT NIL"]] :
@@ -303,6 +310,9 @@
         }
         else {
             NSLog(@"Session.unpublish done");
+			
+			[faceRecognition invalidate];
+			faceRecognition = nil;
         }
         
         CDVPluginResult* pluginResult = error ?
@@ -619,7 +629,69 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }
 
+-(void)recognizeFace:(CDVInvokedUrlCommand*)command
+{
+	CDVPluginResult* pluginResult;
+	
+	if(_publisher != nil)
+	{
+		CIContext *context = [CIContext context];
+		
+		NSDictionary *opts = @{ CIDetectorAccuracy : CIDetectorAccuracyLow };
+		
+		CIDetector *detector = [CIDetector detectorOfType:CIDetectorTypeFace
+												  context:context
+												  options:opts];
+												  
+		UIImage * opentokframe = [self imageForView: _publisher.view];
+		 
+		opts = @{ CIDetectorImageOrientation : kCGImagePropertyOrientationUp};
+		
+		NSArray *features = [detector featuresInImage:opentokframe options:opts];
 
+		NSMutableDictionary * featuresdict = [[NSMutableDictionary alloc] initWithCapacity:6];
+		
+		for (CIFaceFeature *f in features)
+		{
+			NSLog(@"%@", NSStringFromRect(f.bounds));
+		 
+			if (f.hasLeftEyePosition) {
+				NSLog(@"Left eye %g %g", f.leftEyePosition.x, f.leftEyePosition.y);
+				
+				[dict setObject:[NSNumber numberWithFloat:f.leftEyePosition.x] forKey:@"leftEyeX"];
+				[dict setObject:[NSNumber numberWithFloat:f.leftEyePosition.y] forKey:@"leftEyeY"];
+			}
+			if (f.hasRightEyePosition) {
+				NSLog(@"Right eye %g %g", f.rightEyePosition.x, f.rightEyePosition.y);
+				
+				[dict setObject:[NSNumber numberWithFloat:f.rightEyePosition.x] forKey:@"rightEyeX"];
+				[dict setObject:[NSNumber numberWithFloat:f.rightEyePosition.y] forKey:@"rightEyeY"];
+			}
+			if (f.hasMouthPosition) {
+				NSLog(@"Mouth %g %g", f.mouthPosition.x, f.mouthPosition.y);
+				
+				[dict setObject:[NSNumber numberWithFloat:f.mouthPosition.x] forKey:@"mouthX"];
+				[dict setObject:[NSNumber numberWithFloat:f.mouthPosition.y] forKey:@"mouthY"];
+			}
+		}
+		
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary: featuresdict];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+	}	
+	
+	pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[NSString stringWithFormat:@"PUBLISHER IS NULL, NO HEAD TRACKING"]];
+	[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+-(UIImage *)imageForView:(UIView *)view
+{
+  UIGraphicsBeginImageContext(view.frame.size);
+  [view.layer renderInContext: UIGraphicsGetCurrentContext()];
+  UIImage *retval = UIGraphicsGetImageFromCurrentImageContext(void);
+  UIGraphicsEndImageContext();
+
+  return retval;
+}
 
 /***** Notes
  

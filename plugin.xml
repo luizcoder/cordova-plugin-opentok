@@ -61,6 +61,7 @@
       <framework src="CoreGraphics.framework" />
       <framework src="CoreMedia.framework" />
       <framework src="CoreVideo.framework" />
+	  <framework src="CoreImage.framework" />
       <framework src="OpenGLES.framework" />
       <framework src="SystemConfiguration.framework" />
       <framework src="CoreTelephony.framework" />
