@@ -88,9 +88,9 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         }
       }
 	  
-	  cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
-	  _webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
-	  _webView.getView().bringToFront();
+	  //cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
+	  //_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
+	  //_webView.getView().bringToFront();
     }
 
     public int getZIndex(){
@@ -198,9 +198,9 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         this.mView = mPublisher.getView();
         frame.addView( this.mView );
 		
-	    cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
-	    _webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
-	    _webView.getView().bringToFront();
+	    //cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
+	    //_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
+	    //_webView.getView().bringToFront();
 		
         mSession.publish(mPublisher);
       }
@@ -281,9 +281,9 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
         this.mView = mSubscriber.getView();
         frame.addView( this.mView );
 		
-		cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
-	    _webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
-	    _webView.getView().bringToFront();
+		//cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF);
+	    //_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
+	    //_webView.getView().bringToFront();
 		
         mSession.subscribe(mSubscriber);
         Log.i(TAG, "subscriber view is added to parent view!");
