@@ -7,7 +7,7 @@
 
 #import "OpentokPlugin.h"
 
-const bool isVideoOnBackground = false;
+const bool isVideoOnBackground = true;
 
 
 @implementation OpenTokPlugin{

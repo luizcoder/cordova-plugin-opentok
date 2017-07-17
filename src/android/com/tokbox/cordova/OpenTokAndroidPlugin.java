@@ -43,7 +43,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
   protected Session mSession;
   public static final String TAG = "OTPlugin";
   
-  public static final boolean isVideoOnBackGround = false;
+  public static final boolean isVideoOnBackGround = true;
   
   public boolean sessionConnected;
   public boolean publishCalled; // we need this because creating publisher before sessionConnected = crash
