@@ -9,13 +9,14 @@
 #import <Cordova/CDVPlugin.h>
 #import <UIKit/UIKit.h>
 #import <Opentok/Opentok.h>
+#import <ImageIO/ImageIO.h>
 
 @interface OpenTokPlugin : CDVPlugin <OTSessionDelegate, OTPublisherDelegate, OTSubscriberKitDelegate>
 
 @property(nonatomic, copy) NSString* exceptionId;
 
 //Face Recognition
--(void)recognizeFace:(CDVInvokedUrlCommand*)command
+-(void)recognizeFace:(CDVInvokedUrlCommand*)command;
 
 // Tokbox Library Functions
 - (void)addEvent:(CDVInvokedUrlCommand*)command;

@@ -282,12 +282,6 @@
 		}
 		else {
 			NSLog(@"Session.publish done");
-			
-			faceRecognition = [NSTimer scheduledTimerWithTimeInterval:.1
-			target:self
-			selector:@selector(recognizeFace:)
-			userInfo:nil
-			repeats:YES];
 		}
 		
 
@@ -310,9 +304,6 @@
         }
         else {
             NSLog(@"Session.unpublish done");
-			
-			[faceRecognition invalidate];
-			faceRecognition = nil;
         }
         
         CDVPluginResult* pluginResult = error ?
@@ -645,33 +636,32 @@
 												  
 		UIImage * opentokframe = [self imageForView: _publisher.view];
 		 
-		opts = @{ CIDetectorImageOrientation : kCGImagePropertyOrientationUp};
+		opts = @{ CIDetectorImageOrientation :
+          [[opentokframe.CIImage properties] valueForKey:kCGImagePropertyOrientation] };
 		
-		NSArray *features = [detector featuresInImage:opentokframe options:opts];
+		NSArray *features = [detector featuresInImage:opentokframe.CIImage options:opts];
 
 		NSMutableDictionary * featuresdict = [[NSMutableDictionary alloc] initWithCapacity:6];
 		
 		for (CIFaceFeature *f in features)
 		{
-			NSLog(@"%@", NSStringFromRect(f.bounds));
-		 
 			if (f.hasLeftEyePosition) {
 				NSLog(@"Left eye %g %g", f.leftEyePosition.x, f.leftEyePosition.y);
 				
-				[dict setObject:[NSNumber numberWithFloat:f.leftEyePosition.x] forKey:@"leftEyeX"];
-				[dict setObject:[NSNumber numberWithFloat:f.leftEyePosition.y] forKey:@"leftEyeY"];
+				[featuresdict setObject:[NSNumber numberWithFloat:f.leftEyePosition.x] forKey:@"leftEyeX"];
+				[featuresdict setObject:[NSNumber numberWithFloat:f.leftEyePosition.y] forKey:@"leftEyeY"];
 			}
 			if (f.hasRightEyePosition) {
 				NSLog(@"Right eye %g %g", f.rightEyePosition.x, f.rightEyePosition.y);
 				
-				[dict setObject:[NSNumber numberWithFloat:f.rightEyePosition.x] forKey:@"rightEyeX"];
-				[dict setObject:[NSNumber numberWithFloat:f.rightEyePosition.y] forKey:@"rightEyeY"];
+				[featuresdict setObject:[NSNumber numberWithFloat:f.rightEyePosition.x] forKey:@"rightEyeX"];
+				[featuresdict setObject:[NSNumber numberWithFloat:f.rightEyePosition.y] forKey:@"rightEyeY"];
 			}
 			if (f.hasMouthPosition) {
 				NSLog(@"Mouth %g %g", f.mouthPosition.x, f.mouthPosition.y);
 				
-				[dict setObject:[NSNumber numberWithFloat:f.mouthPosition.x] forKey:@"mouthX"];
-				[dict setObject:[NSNumber numberWithFloat:f.mouthPosition.y] forKey:@"mouthY"];
+				[featuresdict setObject:[NSNumber numberWithFloat:f.mouthPosition.x] forKey:@"mouthX"];
+				[featuresdict setObject:[NSNumber numberWithFloat:f.mouthPosition.y] forKey:@"mouthY"];
 			}
 		}
 		
@@ -687,7 +677,7 @@
 {
   UIGraphicsBeginImageContext(view.frame.size);
   [view.layer renderInContext: UIGraphicsGetCurrentContext()];
-  UIImage *retval = UIGraphicsGetImageFromCurrentImageContext(void);
+  UIImage *retval = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
   return retval;
