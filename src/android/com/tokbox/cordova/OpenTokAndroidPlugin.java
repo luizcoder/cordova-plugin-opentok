@@ -378,6 +378,11 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
       _cordova = cordova;
       _webView = webView;
 	  
+	  if(isVideoOnBackGround)
+	  {
+		_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
+	  }
+	  
       Log.d(TAG, "Initialize Plugin");
       // By default, get a pointer to mainView and add mainView to the viewList as it always exists (hold cordova's view)
       if (!viewList.has("mainView")) {
@@ -400,17 +405,6 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
       subscriberCollection = new HashMap<String, RunnableSubscriber>();
 
       super.initialize(cordova, webView);
-	  
-	  if(isVideoOnBackGround)
-	  {
-		 this.cordova.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-				cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFF000000); //black app background
-				_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
-            }
-        });	  
-	  }
     }
 
   @Override
