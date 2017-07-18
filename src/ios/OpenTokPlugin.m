@@ -30,7 +30,7 @@ const bool isVideoOnBackground = true;
 	
 	if(isVideoOnBackground)
 	{
-		self.webView.superview.backgroundColor = [UIColor blackColor];
+		self.webView.superview.backgroundColor = [UIColor whiteColor]; //app background
 		[self.webView.superview setOpaque:NO];
 	}	
 }

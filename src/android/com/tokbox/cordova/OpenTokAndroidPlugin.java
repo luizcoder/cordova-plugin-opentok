@@ -409,7 +409,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
          this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                _cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFF000000); //black app background
+                _cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFFFFFFFF); // app background
             }
         });      
       }
