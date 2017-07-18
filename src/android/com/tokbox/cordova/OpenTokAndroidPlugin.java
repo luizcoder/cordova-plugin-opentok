@@ -403,7 +403,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
 	  
 	  if(isVideoOnBackGround)
 	  {
-		cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFF000000);
+		cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFF0000FF);
 		_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview		  
 	  }
     }
