@@ -36,6 +36,7 @@
       <config-file target="config.xml" parent="/*">
         <feature name="OpenTokPlugin">
           <param name="android-package" value="com.tokbox.cordova.OpenTokAndroidPlugin"/>
+		  <param name="onload" value="true" />
         </feature>
       </config-file>
       
