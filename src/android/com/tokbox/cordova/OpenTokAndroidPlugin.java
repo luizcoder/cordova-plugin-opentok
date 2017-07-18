@@ -93,7 +93,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
 	  
 	  if(isVideoOnBackGround)
 	  {
-		 cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0x0000FFFF);
+		 cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFF00FFFF);
 		_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
 		_webView.getView().bringToFront();	  
 	  }
@@ -206,7 +206,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
 		
 		if(isVideoOnBackGround)
 		{
-			cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0x0000FFFF);
+			cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFF00FFFF);
 			_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
 			_webView.getView().bringToFront();	  
 		}
@@ -292,7 +292,7 @@ public class OpenTokAndroidPlugin extends CordovaPlugin implements
 		
 		 if(isVideoOnBackGround)
 		 {
-			cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0x0000FFFF);
+			cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xFF00FFFF);
 			_webView.getView().setBackgroundColor(0x00000000); //transparent cordova webview
 			_webView.getView().bringToFront();	  
 		 }
